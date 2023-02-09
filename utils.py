@@ -29,6 +29,9 @@ def get_mean_and_std(dataset):
     std.div_(len(dataset))
     return mean, std
 
+_, term_width = os.popen('stty size', 'r').read().split()
+term_width = int(term_width)
+
 TOTAL_BAR_LENGTH = 65.
 last_time = time.time()
 begin_time = last_time
