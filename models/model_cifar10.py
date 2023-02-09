@@ -59,12 +59,3 @@ class Net_Cifar10(nn.Module):
         x = x.view(-1, 10)
        # x = self.fc(x)
         return x
-
-if torch.cuda.is_available():
-  my_model = My_Net().to('cuda')
-else :
-  my_model = My_Net()
-#use_cuda = torch.cuda.is_available()
-#device = torch.device("cuda" if use_cuda else "cpu")
-#model = Net().to(device)
-summary(my_model, input_size=(3, 32, 32))
