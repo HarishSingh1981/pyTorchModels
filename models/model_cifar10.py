@@ -1,4 +1,3 @@
-!pip install torchsummary
 import torch.nn as nn
 import torch.nn.functional as F
 from torchsummary import summary
