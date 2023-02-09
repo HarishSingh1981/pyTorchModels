@@ -1,4 +1,4 @@
-class My_Transforms:
+class Alb_Transforms:
     def __init__(self, transforms: Alb.Compose):
         self.transforms = transforms
 
