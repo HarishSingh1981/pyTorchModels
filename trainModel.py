@@ -1,6 +1,7 @@
 import torch
 
 #Training
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def train_model(dataloader,network,lossfn,optimizer):
     network.train()
