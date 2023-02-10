@@ -7,10 +7,6 @@ import torch.backends.cudnn as cudnn
 import albumentations as Alb
 import torchvision
 import torchvision.transforms as transforms
-
-import os
-import argparse
-
 from models import *
 from utils import progress_bar
 import albumentations_helper
@@ -91,14 +87,6 @@ imshow_cifar(torchvision.utils.make_grid(np.transpose(images,(0,3,1,2))))
 # print labels
 print(' '.join('%5s' % classes[labels[j]] for j in range(batch_size)))
 
-if args.resume:
-    # Load checkpoint.
-    print('==> Resuming from checkpoint..')
-    assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
-    checkpoint = torch.load('./checkpoint/ckpt.pth')
-    net.load_state_dict(checkpoint['net'])
-    best_acc = checkpoint['acc']
-    start_epoch = checkpoint['epoch']
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(my_model.parameters(), lr=0.001, momentum=0.9)
