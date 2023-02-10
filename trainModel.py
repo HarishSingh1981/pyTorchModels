@@ -25,5 +25,5 @@ def train_model(dataloader,network,lossfn,optimizer):
 		total += targets.size(0)
 		correct += predicted.eq(targets).sum().item()
 
-    print(batches, len(dataloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
-                     % (train_loss/(batches), 100.*correct/total, correct, total))
+	print(batches, len(dataloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
+					 % (train_loss/(batches), 100.*correct/total, correct, total))
