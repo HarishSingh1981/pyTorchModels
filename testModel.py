@@ -6,13 +6,13 @@ import numpy as np
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def test_model(dataloader,network,lossfn):
-    global best_acc
-    network.eval()
-    test_loss = 0
-    correct = 0
-    total = 0
-    batches = 0
-    with torch.no_grad():
+	global best_acc
+	network.eval()
+	test_loss = 0
+	correct = 0
+	total = 0
+	batches = 0
+	with torch.no_grad():
 	for batch_idx, (inputs, targets) in enumerate(dataloader):
 		inputs = list(inputs.values())
 		inputs = inputs[0]
