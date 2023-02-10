@@ -14,7 +14,8 @@ def train_model(dataloader,network,lossfn,optimizer):
         inputs = inputs[0]
         inputs, targets = inputs.to(device), targets.to(device)
         optimizer.zero_grad()
-        outputs = network(np.transpose(inputs,(0,3,1,2)))
+        #outputs = network(np.transpose(inputs,(0,3,1,2)))
+		outputs = network(inputs.permute(0,3,1,2))
         loss = lossfn(outputs, targets)
         loss.backward()
         optimizer.step()
