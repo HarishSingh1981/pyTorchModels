@@ -6,7 +6,6 @@ def test_model(dataloader,network,lossfn):
     correct = 0
     total = 0
     batches = 0
-	batch_idx = 0
     with torch.no_grad():
         for batch_idx, (inputs, targets) in enumerate(dataloader):
             inputs, targets = inputs.to(device), targets.to(device)

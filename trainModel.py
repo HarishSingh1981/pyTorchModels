@@ -6,7 +6,6 @@ def train_model(dataloader,network,lossfn,optimizer):
     correct = 0
     total = 0
     batches = 0
-	batch_idx = 0
     for batch_idx, (inputs, targets) in enumerate(dataloader):
         inputs = list(inputs.values())
         inputs = inputs[0]
