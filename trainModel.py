@@ -4,13 +4,13 @@ import numpy as np
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def train_model(dataloader,network,lossfn,optimizer):
-    network.train()
-    train_loss = 0
-    correct = 0
-    total = 0
-    batches = 0
+	network.train()
+	train_loss = 0
+	correct = 0
+	total = 0
+	batches = 0
 
-    for batch_idx, (inputs, targets) in enumerate(dataloader):
+	for batch_idx, (inputs, targets) in enumerate(dataloader):
 		inputs = list(inputs.values())
 		inputs = inputs[0]
 		inputs, targets = inputs.to(device), targets.to(device)
