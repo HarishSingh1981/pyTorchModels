@@ -1,3 +1,5 @@
+import torch
+
 #Training
 
 def train_model(dataloader,network,lossfn,optimizer):

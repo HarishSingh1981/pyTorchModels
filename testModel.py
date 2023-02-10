@@ -1,4 +1,9 @@
+import torch
+
 # Validation
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
 def test_model(dataloader,network,lossfn):
     global best_acc
     networkLi.eval()
