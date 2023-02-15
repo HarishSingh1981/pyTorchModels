@@ -14,8 +14,8 @@ def test_model(dataloader,network,lossfn):
 	batches = 0
 	with torch.no_grad():
 		for batch_idx, (inputs, targets) in enumerate(dataloader):
-			inputs = list(inputs.values())
-			inputs = inputs[0]
+			#inputs = list(inputs.values())
+			#inputs = inputs[0]
 
 			inputs, targets = inputs.to(device), targets.to(device)
 			outputs = network(inputs.permute(0,3,1,2))
