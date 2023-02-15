@@ -18,7 +18,7 @@ class DepthwiseSeparable(nn.Module):
     return x
 
 class Net_Cifar10(nn.Module):
-    def __init__(self):
+    def __init__(self,drop):
         super(Net_Cifar10, self).__init__()
         '''
         j_out = j_in * stride
