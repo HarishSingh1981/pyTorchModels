@@ -18,7 +18,7 @@ def test_model(dataloader,network,lossfn):
 			#inputs = inputs[0]
 
 			inputs, targets = inputs.to(device), targets.to(device)
-			outputs = network(inputs.permute(0,3,1,2))
+			outputs = network(inputs)
 			loss = lossfn(outputs, targets)
 
 			test_loss += loss.item()
