@@ -10,4 +10,4 @@ class Alb_Transforms:
         images = list(images.values())
         images = images[0]
         #print(f'Shape of data from dataloader--> {images.shape}')
-        return images.transpose((0,1,2))
+        return images.transpose((2,0,1))
