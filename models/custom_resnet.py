@@ -66,7 +66,7 @@ class custom_resnet(nn.Module):
             nn.ReLU())
 
         self.MP4 = nn.MaxPool2d(kernel_size=(4,4),stride=4) # Input: 4x4x512 | Output: 1x1x512 | RF: 42x42 | jin = 8
-        self.fc = nn.Linear(in_features=512,out_feature=10)
+        self.fc = nn.Linear(in_features=512,out_features=10)
     def forward(self, x):
       #maxpool must be used at least after 2 convolution and sud be as far as possible from last layer
         #x = x.to('cuda')
