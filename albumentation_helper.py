@@ -9,4 +9,5 @@ class Alb_Transforms:
         images = self.transforms(image=np.array(img))
         images = list(images.values())
         images = images[0]
+        print(f'Shape of data from dataloader--> {images.shape}')
         return images.transpose((0,3,1,2))
