@@ -4,7 +4,7 @@ import numpy as np
 #Training
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-def train_model(dataloader,network,lossfn,optimizer):
+def train_model(dataloader,network,lossfn,optimizer,scheduler=None):
 	network.train()
 	train_loss = 0
 	correct = 0
@@ -20,6 +20,8 @@ def train_model(dataloader,network,lossfn,optimizer):
 		loss = lossfn(outputs, targets)
 		loss.backward()
 		optimizer.step()
+		if scheduler != None:
+                 scheduler.step()
 		batches +=1
 		train_loss += loss.item()
 		_, predicted = outputs.max(1)
