@@ -30,7 +30,7 @@ class custom_resnet(nn.Module):
         # Input: 32x32x3 | Output: 32x32x64 | RF: 3x3
         self.prepLayer = nn.Sequential(
             nn.Conv2d(in_channels=3, out_channels=64, kernel_size=(3, 3), padding=1, stride=1,bias=False),
-            nn.BatchNorm2d(32),
+            nn.BatchNorm2d(64),
             nn.ReLU())
         # Input: 32x32x64 | Output: 16x16x128 | RF: 3x3
         self.layer1_X = nn.Sequential(
