@@ -6,7 +6,7 @@ class Alb_Transforms:
         self.transforms = transforms
 
     def __call__(self, img, *args, **kwargs):
-	images = self.transforms(image=np.array(img))
-	images = list(images.values())
-	images = images[0]
-	return images
+        images = self.transforms(image=np.array(img))
+        images = list(images.values())
+        images = images[0]
+        return images
