@@ -43,7 +43,7 @@ class custom_resnet(nn.Module):
             nn.BatchNorm2d(128),
             nn.ReLU(),
             nn.Conv2d(in_channels=128, out_channels=128, kernel_size=(3, 3), padding=1,bias=False),# Input: 14x14x128 | Output: 16x16x128 | RF: 14x14 | jin = 2
-            nn.BatchNorm2d(),
+            nn.BatchNorm2d(128),
             nn.ReLU())
 
         self.layer2 = nn.Sequential(
@@ -62,10 +62,11 @@ class custom_resnet(nn.Module):
             nn.BatchNorm2d(512),
             nn.ReLU(),
             nn.Conv2d(in_channels=512, out_channels=512, kernel_size=(3, 3),padding=1,bias=False), # Input: 4x4x512 | Output: 4x4x512 | RF: 38x38 | jin = 4
-            nn.BatchNorm2d(),
+            nn.BatchNorm2d(512),
             nn.ReLU())
 
         self.MP4 = nn.MaxPool2d(kernel_size=(4,4),stride=4) # Input: 4x4x512 | Output: 1x1x512 | RF: 42x42 | jin = 8
+        self.fc = nn.Linear(in_features=512,out_feature=10)
     def forward(self, x):
       #maxpool must be used at least after 2 convolution and sud be as far as possible from last layer
         #x = x.to('cuda')
@@ -78,5 +79,7 @@ class custom_resnet(nn.Module):
         res = self.layer3_R1(x)
         x = x+res
         x =  self.MP4(x)
-        x = x.view(-1, 10)
+        x = x.view(-1, 512)
+        x = self.fc(x)
+        
         return F.log_softmax(x, dim=-1)
