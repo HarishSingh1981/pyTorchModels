@@ -12,8 +12,8 @@ def train_model(dataloader,network,lossfn,optimizer):
 	batches = 0
 
 	for batch_idx, (inputs, targets) in enumerate(dataloader):
-		inputs = list(inputs.values())
-		inputs = inputs[0]
+		#inputs = list(inputs.values())
+		#inputs = inputs[0]
 		inputs, targets = inputs.to(device), targets.to(device)
 		optimizer.zero_grad()
 		outputs = network(inputs.permute(0,3,1,2))
