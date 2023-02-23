@@ -3,12 +3,11 @@
 !git pull origin
 %cd ..
 !pip install torchsummary
-
 '''Train CIFAR10 with PyTorch.'''
 !pip install grad-cam
 import sys
 sys.path.append('/content/pyTorchModels/')
-sys.path.append('/content/pyTorchModels/models')
+sys.path.append('/content/pyTorchModels/models/session8')
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -33,7 +32,7 @@ from pytorch_grad_cam.utils.image import show_cam_on_image
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 best_acc = 0  # best test accuracy
 start_epoch = 0  # start from epoch 0 or last checkpoint epoch
-batch_size = 128
+batch_size = 512
 
 # Data
 print('==> Preparing data..')
@@ -49,9 +48,6 @@ CustomTrainTransform = Alb.Compose([Alb.Normalize(mean=(0.5,0.5,0.5),std=(0.5,0.
                                     Alb.HorizontalFlip(p=1),
                                     Alb.CoarseDropout(max_holes=1,max_height=8,max_width=8,min_holes=1,min_height=8,min_width=8,fill_value=(0.5,0.5,0.5),mask_fill_value=None)])
  
-TrainTransform = Alb.Compose([Alb.Normalize(mean=(0.5,0.5,0.5),std=(0.5,0.5,0.5)),
-                            Alb.HorizontalFlip(),Alb.ShiftScaleRotate(),
-                            Alb.CoarseDropout(max_holes=1,max_height=16,max_width=16,min_holes=1,min_height=16,min_width=16,fill_value=(0.5,0.5,0.5),mask_fill_value=None)])
 transform = Alb_Transforms(CustomTrainTransform)
 TestTransform = transforms.Compose([transforms.ToTensor(),
                                     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
@@ -110,7 +106,7 @@ for name, layer in net.named_modules():
 
 
 print(net)
-'''
+
 #Visualization of data
 # get some random training images
 dataiter = iter(trainloader)
@@ -130,7 +126,7 @@ print(' '.join('%5s' % classes[labels[j]] for j in range(batch_size)))
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
-'''
+
 for epoch in range(start_epoch, start_epoch+20):
     train_model(dataloader=trainloader,network=net,lossfn=criterion,optimizer=optimizer)
     test_model(dataloader=testloader,network=net,lossfn=criterion)
@@ -249,6 +245,7 @@ for i, ax in enumerate(axes.flat):
 plt.show()
 '''
 !pip install torch_lr_finder
+
 from torch_lr_finder import LRFinder
 
 #define instance of LRFinder
@@ -258,20 +255,22 @@ optimizer_new = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 lr_finder = LRFinder(net,optimizer_new,criterion_new)
 
 #Run range test
-lr_finder.range_test(trainloader,end_lr=1,num_iter=100,step_mode="exp")
+lr_finder.range_test(trainloader,start_lr=1e-03,end_lr=1,num_iter=100,step_mode="exp")
 lr_finder.plot()
-lr_finder.lr_suggestion()
+lr_finder.reset()
 
 from torch.optim.lr_scheduler import OneCycleLR
 '''
-With above graph the fine tuned max lr is 0.498 and as discussed earlier in class min LR i.e. 0.001
+With above graph the fine tuned max lr is 0.0614 and as discussed earlier in class min LR 0.00614
 that is what we used to calculate optimal LR
 '''
-ler_rate = 0.498
+ler_rate = 0.0614
 #Let's start with loading the trained model and train again further
-model_parameters = torch.load('/content/pyTorchModels/custom_resnet.pth')
+#model_parameters = torch.load('/content/pyTorchModels/custom_resnet.pth')
 #load parameters to model
 #net.load_state_dict(model_parameters)
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
 #Train again with one cycle policy now
 epochs = 24
@@ -283,7 +282,7 @@ pct_start = (5*steps_per_epoch)/total_steps
 print(f'pct_start --> {pct_start}')
 scheduler = OneCycleLR(optimizer,max_lr=ler_rate,
                        steps_per_epoch=steps_per_epoch,epochs=epochs,
-                       pct_start=pct_start,div_factor=10)
+                       pct_start=pct_start,div_factor=10,final_div_factor=10,verbose=False)
 
 #Train the model further
 for epoch in range(start_epoch, start_epoch+24):
