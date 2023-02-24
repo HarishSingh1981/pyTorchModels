@@ -10,6 +10,5 @@ class Alb_Transforms:
         images = self.transforms(image=np.array(img))
         images = list(images.values())
         images = images[0]
-        images = images.transpose((2,0,1))
         #print(f'Shape of data from dataloader--> {images.shape}')
-        return torch.from_numpy(images)
+        return images.transpose((2,0,1))
