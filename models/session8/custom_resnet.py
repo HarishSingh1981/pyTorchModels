@@ -82,4 +82,4 @@ class custom_resnet(nn.Module):
         x = x.view(-1, 512)
         x = self.fc(x)
         
-        return F.log_softmax(x, dim=-1)
+        return x
