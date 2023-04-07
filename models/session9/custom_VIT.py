@@ -35,7 +35,7 @@ class Ultimus(nn.Module):
     X_Q = self.Q(x) #Weighted query
     X_V = self.V(x) #weighted value
     #print(f'Shape of X_K/X_Q/X_V --> {X_K.shape}/{X_Q.shape}/{X_V.shape}')
-    AM = F.softmax(torch.matmul(X_K,torch.transpose(X_Q,0,1))/torch.sqrt(torch.tensor(X_Q.shape[1],dtype=torch.int32)))
+    AM = F.softmax(torch.matmul(X_Q,torch.transpose(X_K,0,1))/torch.sqrt(torch.tensor(X_Q.shape[1],dtype=torch.int32)))
     Z = torch.matmul(AM,X_V)
     return self.Z_Out(Z)
 
