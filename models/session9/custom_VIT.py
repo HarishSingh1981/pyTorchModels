@@ -77,4 +77,4 @@ class custom_VIT(nn.Module):
         x = self.ultimus_blk(x)
 
         x = self.FC(x)    
-        return F.log_softmax(x,dim=-1)
+        return x
