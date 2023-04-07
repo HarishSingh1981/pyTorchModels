@@ -31,3 +31,4 @@ def test_model(dataloader,network,lossfn):
 			#             % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
 	print(len(dataloader), 'Testing:: Loss: %.3f | Acc: %.3f%% (%d/%d)'
 				 % (test_loss/(batches), 100.*correct/total, correct, total))
+	return (100.*correct/total),(test_loss/batches)
