@@ -30,3 +30,4 @@ def train_model(dataloader,network,lossfn,optimizer,scheduler=None):
 
 	print(batches, len(dataloader), 'Training:: Loss: %.3f | Acc: %.3f%% (%d/%d)'
 					 % (train_loss/(batches), 100.*correct/total, correct, total))
+	return 100.*correct/total,(train_loss/batches)
